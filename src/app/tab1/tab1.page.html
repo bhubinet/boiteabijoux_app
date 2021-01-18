@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="text-white">
+      Collection
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-text-center ion-margin-bottom ion-margin-top">
+    <ion-button class="w-90" (click)="add()">Ajouter</ion-button>
+  </div>
+
+  <ion-grid style="padding: 0">
+    <ion-row>
+      <ion-col *ngFor="let bijou of bijoux" class="jewel-col" (click)="detail(bijou)">
+        <img [src]="bijou.image" class="jewel-gallery">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="text-white">Ajouter un bijou</ion-title>
+    <ion-icon name="close" size="large" class="text-white" (click)="dismiss()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <ion-item>
+    <ion-label position="floating">Nom</ion-label>
+    <ion-select [(ngModel)]="name">
+      <ion-select-option>Bracelet</ion-select-option>
+      <ion-select-option>Bague</ion-select-option>
+      <ion-select-option>Colliers</ion-select-option>
+      <ion-select-option>Homme</ion-select-option>
+      <ion-select-option>Boucles d'oreilles</ion-select-option>
+      <ion-select-option>Porte-clés</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Prix</ion-label>
+    <ion-input type="number" [(ngModel)]="price"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Stock</ion-label>
+    <ion-input type="number" [(ngModel)]="stock"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-button (click)="capture()">Ajouter une photo</ion-button>
+  </ion-item>
+
+  <ion-button class="w-90 ion-margin-top" (click)="createJewel()">Créer un bijou</ion-button>
+</ion-content>

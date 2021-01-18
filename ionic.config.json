@@ -1,0 +1,7 @@
+{
+  "name": "boiteabijoux_app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
