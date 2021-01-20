@@ -29,6 +29,7 @@ export class Tab1Page {
     list.on('value', (snapshot) => {
       this.bijoux = Object.keys(snapshot.val()).map((personNamedIndex) => {
         const bijou = snapshot.val()[personNamedIndex];
+        bijou.key = personNamedIndex;
         const storageRef = firebase.storage();
         if (typeof bijou.image !== 'undefined') {
           const gsReference = storageRef.refFromURL(bijou.image);

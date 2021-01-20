@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [color]="'#FFA69E'">
     <ion-title class="text-white">
       Collection
     </ion-title>
@@ -13,8 +13,8 @@
 
   <ion-grid style="padding: 0">
     <ion-row>
-      <ion-col *ngFor="let bijou of bijoux" class="jewel-col" (click)="detail(bijou)">
-        <img [src]="bijou.image" class="jewel-gallery">
+      <ion-col *ngFor="let bijou of bijoux" class="jewel-col" (click)="detail(bijou)" [size]="4">
+        <img [style]="'background:url(' + bijou.image + ')'" class="jewel-gallery">
       </ion-col>
     </ion-row>
   </ion-grid>

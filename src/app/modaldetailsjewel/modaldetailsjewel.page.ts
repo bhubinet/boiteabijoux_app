@@ -18,6 +18,7 @@ export class ModaldetailsjewelPage implements OnInit {
       public navParams: NavParams
   ) {
     this.jewel = navParams.get('object');
+    console.log(this.jewel);
   }
 
   ngOnInit() {
@@ -51,6 +52,21 @@ export class ModaldetailsjewelPage implements OnInit {
           this.dismiss();
         });
       }*/
+    });
+  }
+
+  deleteJewel(){
+    Swal.fire({
+      title: 'Supprimer ce bijou ?',
+      showCancelButton: true,
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'Annuler'
+    }).then((value) => {
+      if (value.isConfirmed){
+        firebase.database().ref('bijoux/' + this.jewel.key).remove().then(() => {
+          this.dismiss();
+        });
+      }
     });
   }
 

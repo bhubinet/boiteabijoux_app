@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title class="text-white">Détails du bijou</ion-title>
-    <ion-icon name="close" size="large" class="text-white" (click)="dismiss()"></ion-icon>
+  <ion-toolbar [color]="'#FFA69E'">
+    <ion-icon name="close" size="large" class="text-white close-icon" (click)="dismiss()"></ion-icon>
+    <ion-title class="text-white" style="text-align: center">Détails du bijou</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,5 +14,8 @@
   <div class="d-flex" style="padding: 10px">
     <label>Stock : {{jewel.stock}}</label>
     <ion-icon name="md-basket" class="sell-icon" (click)="sellJewel()"></ion-icon>
+  </div>
+  <div style="padding: 10px">
+    <ion-icon name="md-trash" class="sell-icon" style="background: darkred" (click)="deleteJewel()"></ion-icon>
   </div>
 </ion-content>

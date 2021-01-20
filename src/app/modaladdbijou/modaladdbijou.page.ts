@@ -3,6 +3,7 @@ import {ModalController} from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import firebase from 'firebase';
 import {AngularFireDatabase} from '@angular/fire/database';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-modaladdbijou',
@@ -12,7 +13,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 export class ModaladdbijouPage implements OnInit {
   captureDataUrl: string;
   name: string;
-  price = 0;
+  price: number;
   stock = 1;
 
   constructor(
@@ -30,22 +31,34 @@ export class ModaladdbijouPage implements OnInit {
   }
 
   capture() {
-    const cameraOptions: CameraOptions = {
-      quality: 50,
-      destinationType: Camera.DestinationType.DATA_URL,
-      encodingType: Camera.EncodingType.JPEG,
-      mediaType: Camera.MediaType.PICTURE,
-    };
+    Swal.fire({
+      title: 'Supprimer ce bijou ?',
+      showCancelButton: true,
+      confirmButtonText: 'Galerie',
+      cancelButtonText: 'Appareil photo'
+    }).then((value) => {
+      let sourceType = Camera.PictureSourceType.CAMERA;
+      if (value.isConfirmed) {
+        sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+      }
+      const cameraOptions: CameraOptions = {
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        encodingType: Camera.EncodingType.JPEG,
+        mediaType: Camera.MediaType.PICTURE,
+        sourceType: sourceType
+      };
 
-    Camera.getPicture(cameraOptions)
-        .then((imageData) => {
-          // imageData is either a base64 encoded string or a file URI // If it's base64:
+      Camera.getPicture(cameraOptions)
+          .then((imageData) => {
+            // imageData is either a base64 encoded string or a file URI // If it's base64:
 
-          this.captureDataUrl = 'data:image/jpeg;base64,' + imageData;
-        }, (err) => {
-          // Handle error
+            this.captureDataUrl = 'data:image/jpeg;base64,' + imageData;
+          }, (err) => {
+            // Handle error
 
-        });
+          });
+    });
   } // End of capture camera
 
   upload() {

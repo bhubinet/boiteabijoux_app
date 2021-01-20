@@ -34,12 +34,23 @@
   color: white;
 }
 
+.close-icon{
+  position: absolute;
+  left: 10px;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+}
+
 ion-tab-bar{
   border-color: var(--ion-color-primary);
 }
-
+.toolbar-background{
+  background: var(--ion-color-primary);
+}
 ion-toolbar{
   --border-width: 0 !important;
+  background: var(--ion-color-primary) !important;
   ion-title{
     background: var(--ion-color-primary);
   }
@@ -52,6 +63,12 @@ ion-toolbar{
   align-items: center;
   opacity: 0.9;
   padding: 0;
+  img{
+    width: 100%;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+  }
 }
 
 .jewel-gallery{
