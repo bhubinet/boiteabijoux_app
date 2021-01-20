@@ -3,5 +3,12 @@
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "appId": "boiteabijoux.beta",
+  "id": "d954a376",
+  "cordova": {
+    "preferences": {
+      "DisableDeploy": "true"
+    }
+  }
 }

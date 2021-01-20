@@ -35,7 +35,6 @@ export class ModaladdbijouPage implements OnInit {
       destinationType: Camera.DestinationType.DATA_URL,
       encodingType: Camera.EncodingType.JPEG,
       mediaType: Camera.MediaType.PICTURE,
-      sourceType: Camera.PictureSourceType.PHOTOLIBRARY
     };
 
     Camera.getPicture(cameraOptions)
