@@ -3,6 +3,8 @@ import {ModalController, NavParams} from '@ionic/angular';
 import {AngularFireDatabase} from '@angular/fire/database';
 import Swal from 'sweetalert2';
 import firebase from 'firebase';
+import { AlertController } from '@ionic/angular';
+import {Camera} from '@ionic-native/camera';
 
 @Component({
   selector: 'app-modaldetailsjewel',
@@ -15,10 +17,10 @@ export class ModaldetailsjewelPage implements OnInit {
   constructor(
       public modalCtrl: ModalController,
       public afDB: AngularFireDatabase,
-      public navParams: NavParams
+      public navParams: NavParams,
+      public alertController: AlertController
   ) {
     this.jewel = navParams.get('object');
-    console.log(this.jewel);
   }
 
   ngOnInit() {
@@ -28,6 +30,26 @@ export class ModaldetailsjewelPage implements OnInit {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalCtrl.dismiss();
+  }
+
+  async presentAlertDelete() {
+    const alert = await this.alertController.create({
+      header: '',
+      message: 'Supprimer ce bijou ?',
+      buttons: [
+        {
+          text: 'Supprimer',
+          handler: () => {
+            this.deleteJewel();
+          }
+        }, {
+          text: 'Annuler',
+          role: 'cancel',
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   sellJewel() {
@@ -40,33 +62,46 @@ export class ModaldetailsjewelPage implements OnInit {
       cancelButtonText: 'Annuler'
     }).then((value) => {
       console.log(value);
-      /*if (value.isConfirmed){
-        console.log(value);
+      if (value.isConfirmed){
         const storageRef = firebase.storage().ref();
 
-        this.afDB.list('commandes/').push({
+        this.afDB.list('ventes/').push({
           name: this.jewel.name,
           price: this.jewel.price,
           date: new Date(),
         }).then(() => {
           this.dismiss();
         });
-      }*/
+      }
+    });
+  }
+
+  commandJewel() {
+    Swal.fire({
+      title: 'Placer 1 bijou en commande ?',
+      input: 'number',
+      inputValue: this.jewel.price,
+      showCancelButton: true,
+      confirmButtonText: 'Commander',
+      cancelButtonText: 'Annuler'
+    }).then((value) => {
+      console.log(value);
+      if (value.isConfirmed){
+        const storageRef = firebase.storage().ref();
+
+        this.afDB.list('commandes/').push({
+          name: this.jewel.name,
+          price: this.jewel.price,
+        }).then(() => {
+          this.dismiss();
+        });
+      }
     });
   }
 
   deleteJewel(){
-    Swal.fire({
-      title: 'Supprimer ce bijou ?',
-      showCancelButton: true,
-      confirmButtonText: 'Supprimer',
-      cancelButtonText: 'Annuler'
-    }).then((value) => {
-      if (value.isConfirmed){
-        firebase.database().ref('bijoux/' + this.jewel.key).remove().then(() => {
-          this.dismiss();
-        });
-      }
+    firebase.database().ref('bijoux/' + this.jewel.key).remove().then(() => {
+      this.dismiss();
     });
   }
 

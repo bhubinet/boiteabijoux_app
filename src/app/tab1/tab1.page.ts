@@ -20,28 +20,26 @@ export class Tab1Page {
     this.getJewels();
   }
 
-  /*async ionViewDidLoad(){
-    await this.getJewels();
-  }*/
-
   async getJewels(){
     const list = this.afDB.database.ref('bijoux/');
     list.on('value', (snapshot) => {
-      this.bijoux = Object.keys(snapshot.val()).map((personNamedIndex) => {
-        const bijou = snapshot.val()[personNamedIndex];
-        bijou.key = personNamedIndex;
-        const storageRef = firebase.storage();
-        if (typeof bijou.image !== 'undefined') {
-          const gsReference = storageRef.refFromURL(bijou.image);
+      if (snapshot.val() != null) {
+        this.bijoux = Object.keys(snapshot.val()).map((personNamedIndex) => {
+          const bijou = snapshot.val()[personNamedIndex];
+          bijou.key = personNamedIndex;
+          const storageRef = firebase.storage();
+          if (typeof bijou.image !== 'undefined') {
+            const gsReference = storageRef.refFromURL(bijou.image);
 
-          gsReference.getDownloadURL().then((url) => {
-            bijou.image = url;
-          }).catch((error) => {
-            // Handle any errors
-          });
-        }
-        return bijou;
-      });
+            gsReference.getDownloadURL().then((url) => {
+              bijou.image = url;
+            }).catch((error) => {
+              // Handle any errors
+            });
+          }
+          return bijou;
+        });
+      }
     });
   }
 

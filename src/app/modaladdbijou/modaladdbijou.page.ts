@@ -3,7 +3,7 @@ import {ModalController} from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import firebase from 'firebase';
 import {AngularFireDatabase} from '@angular/fire/database';
-import Swal from "sweetalert2";
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-modaladdbijou',
@@ -18,7 +18,8 @@ export class ModaladdbijouPage implements OnInit {
 
   constructor(
       public modalCtrl: ModalController,
-      public afDB: AngularFireDatabase
+      public afDB: AngularFireDatabase,
+      public alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -30,23 +31,35 @@ export class ModaladdbijouPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  capture() {
-    Swal.fire({
-      title: 'Supprimer ce bijou ?',
-      showCancelButton: true,
-      confirmButtonText: 'Galerie',
-      cancelButtonText: 'Appareil photo'
-    }).then((value) => {
-      let sourceType = Camera.PictureSourceType.CAMERA;
-      if (value.isConfirmed) {
-        sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-      }
+  async presentAlertPicture() {
+    const alert = await this.alertController.create({
+      header: 'Ajouter une photo',
+      message: 'Choisissez comment ajouter la photo',
+      buttons: [
+        {
+          text: 'Galerie',
+          handler: () => {
+            this.capture(Camera.PictureSourceType.PHOTOLIBRARY);
+          }
+        }, {
+          text: 'Appareil photo',
+          handler: () => {
+            this.capture(Camera.PictureSourceType.CAMERA);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  capture(src) {
       const cameraOptions: CameraOptions = {
         quality: 50,
         destinationType: Camera.DestinationType.DATA_URL,
         encodingType: Camera.EncodingType.JPEG,
         mediaType: Camera.MediaType.PICTURE,
-        sourceType: sourceType
+        sourceType: src
       };
 
       Camera.getPicture(cameraOptions)
@@ -58,7 +71,6 @@ export class ModaladdbijouPage implements OnInit {
             // Handle error
 
           });
-    });
   } // End of capture camera
 
   upload() {

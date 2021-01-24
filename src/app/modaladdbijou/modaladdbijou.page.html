@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title class="text-white">Ajouter un bijou</ion-title>
-    <ion-icon name="close" size="large" class="text-white" (click)="dismiss()"></ion-icon>
+  <ion-toolbar [color]="'#FFA69E'">
+    <ion-icon name="close" size="large" class="text-white close-icon" (click)="dismiss()"></ion-icon>
+    <ion-title class="text-white" style="text-align: center">Ajouter un bijou</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -29,7 +29,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-button (click)="capture()">Ajouter une photo</ion-button>
+    <ion-button (click)="presentAlertPicture()">Ajouter une photo</ion-button>
   </ion-item>
 
   <img [src]="captureDataUrl">

@@ -15,7 +15,11 @@
     <label>Stock : {{jewel.stock}}</label>
     <ion-icon name="md-basket" class="sell-icon" (click)="sellJewel()"></ion-icon>
   </div>
+  <div class="d-flex" style="padding: 10px">
+    <label>Stock : {{jewel.stock}}</label>
+    <ion-icon name="md-cube" class="sell-icon" (click)="commandJewel()"></ion-icon>
+  </div>
   <div style="padding: 10px">
-    <ion-icon name="md-trash" class="sell-icon" style="background: darkred" (click)="deleteJewel()"></ion-icon>
+    <ion-icon name="md-trash" class="sell-icon" style="background: darkred" (click)="presentAlertDelete()"></ion-icon>
   </div>
 </ion-content>
